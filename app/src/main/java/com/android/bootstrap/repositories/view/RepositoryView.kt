@@ -1,8 +1,8 @@
 package com.android.bootstrap.repositories.view
 
-import com.android.bootstrap.repositories.model.Repository
+import com.android.bootstrap.usecase.domain.model.Repo
 
 interface RepositoryView {
-  fun showRepositories(repositories: List<Repository>)
+  fun showRepositories(repos: List<Repo>)
   fun showError()
 }
