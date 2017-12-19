@@ -8,5 +8,10 @@
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
   </style>
+  <style name="RepositoriesList">
+    <item name="android:paddingRight">8dp</item>
+    <item name="android:paddingLeft">8dp</item>
+    <item name="android:textSize">12sp</item>
+  </style>
 
 </resources>
