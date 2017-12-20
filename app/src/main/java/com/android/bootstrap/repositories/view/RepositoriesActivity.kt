@@ -2,35 +2,36 @@ package com.android.bootstrap.repositories.view
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.android.bootstrap.R
 import com.android.bootstrap.usecase.domain.model.Repo
 import com.android.bootstrap.repositories.presenter.RepositoriesPresenter
+import com.android.bootstrap.repositories.view.adapter.RepositoryAdapter
 import com.android.bootstrap.usecase.GetRepositoriesUseCaseServiceLocator
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_repositories.repositoriesRecyclerView
+import org.jetbrains.anko.toast
 
 class RepositoriesActivity : AppCompatActivity(), RepositoryView {
-  private val presenter: RepositoriesPresenter by lazy { RepositoriesPresenter(this) }
+  private val presenter: RepositoriesPresenter by lazy {
+    RepositoriesPresenter(this, GetRepositoriesUseCaseServiceLocator.provideGetRepositoriesUseCase())
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_repositories)
-    presenter.onRepositoriesLoaded()
-    loadResults()
+    repositoriesRecyclerView.layoutManager = LinearLayoutManager(this)
+    presenter.onRepositoriesLoaded(1, 20)
   }
 
-  fun loadResults() {
-    val useCase = GetRepositoriesUseCaseServiceLocator.provideGetRepositoriesUseCase()
-
-    useCase.getRepositories(1, 1)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe { it.forEach { Log.i("hola", it.isFork.toString()) } }
+  override fun onDestroy() {
+    super.onDestroy()
+    presenter.onDestroy()
   }
 
-  override fun showRepositories(repos: List<Repo>) {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+  override fun showRepositories(repositories: List<Repo>) {
+    repositoriesRecyclerView.adapter = RepositoryAdapter(repositories) { toast(it.name) }
+    repositories.forEach { Log.i(it.name, it.description) }
   }
 
   override fun showError() {

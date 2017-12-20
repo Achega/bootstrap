@@ -11,6 +11,12 @@ class RepoDataToDomainMapper : Function<List<RepoDataModel>, List<Repo>> {
 
   private fun mapRepo(repoDataModel: RepoDataModel) =
       with(repoDataModel) {
-        Repo(name, description, owner.login, isFork, url, owner.url)
+        Repo(name = name ?: "",
+            description = description ?: "",
+            login = owner.login ?: "",
+            isFork = isFork,
+            htmlUrl = url,
+            ownerHtmlUrl = owner.url)
       }
+
 }

@@ -2,22 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
+              style="@style/RepositoryItemView"
     >
 
   <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:id="@+id/repository_view_name"
+      style="@style/RepositoryNameView"
       />
   <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:id="@+id/repository_view_description"
+      style="@style/RepositoryDescriptionView"
       />
   <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:id="@+id/repository_view_login"
+      style="@style/RepositoryLoginView"
       />
 </LinearLayout>

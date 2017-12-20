@@ -8,10 +8,38 @@
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
   </style>
+
   <style name="RepositoriesList">
     <item name="android:paddingRight">8dp</item>
     <item name="android:paddingLeft">8dp</item>
+  </style>
+
+  <style name="RepositoryItemView">
+    <item name="android:paddingBottom">4dp</item>
     <item name="android:textSize">12sp</item>
+    <item name="android:layout_marginTop">16dp</item>
+    <item name="android:layout_marginBottom">16dp</item>
+    <item name="android:padding">8dp</item>
+  </style>
+
+  <style name="RepositoryNameView">
+    <item name="android:textSize">20sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:paddingBottom">8dp</item>
+  </style>
+
+  <style name="RepositoryDescriptionView">
+    <item name="android:textSize">16sp</item>
+    <item name="android:textStyle">italic</item>
+    <item name="android:paddingLeft">4dp</item>
+    <item name="android:paddingRight">4dp</item>
+    <item name="android:paddingBottom">4dp</item>
+  </style>
+
+  <style name="RepositoryLoginView">
+    <item name="android:textSize">12sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:gravity">end</item>
   </style>
 
 </resources>
