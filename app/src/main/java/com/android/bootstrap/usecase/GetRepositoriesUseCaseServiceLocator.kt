@@ -9,6 +9,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object GetRepositoriesUseCaseServiceLocator {
+  private val REPOS_URL = "https://api.github.com/"
+
   fun provideGetRepositoriesUseCase() = GetRepositoriesUseCase(provideRepoRepository())
 
   private fun provideRepoRepository() = RepoRepository(provideGitHubApi(), RepoDataToDomainMapper())
@@ -17,7 +19,7 @@ object GetRepositoriesUseCaseServiceLocator {
 
   private fun provideRetrofit() =
       Retrofit.Builder()
-          .baseUrl("https://api.github.com/")
+          .baseUrl(REPOS_URL)
           .addConverterFactory(GsonConverterFactory.create())
           .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
           .build()

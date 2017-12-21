@@ -5,6 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View.VISIBLE
+import android.view.View.GONE
 import com.android.bootstrap.R
 import com.android.bootstrap.usecase.domain.model.Repo
 import com.android.bootstrap.repositories.presenter.RepositoriesPresenter
@@ -12,6 +14,7 @@ import com.android.bootstrap.repositories.view.adapter.RepositoryAdapter
 import com.android.bootstrap.repositories.view.adapter.ScrollListener
 import com.android.bootstrap.usecase.GetRepositoriesUseCaseServiceLocator
 import kotlinx.android.synthetic.main.activity_repositories.repositoriesRecyclerView
+import kotlinx.android.synthetic.main.progress_bar_view.progress_bar
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.toast
 
@@ -71,6 +74,14 @@ class RepositoriesActivity : AppCompatActivity(), RepositoryView {
 
   override fun stopSearching() {
     isLastPage = true
+  }
+
+  override fun showLoading() {
+    progress_bar.visibility = VISIBLE
+  }
+
+  override fun hideLoading() {
+    progress_bar.visibility = GONE
   }
 
   override fun showError() {

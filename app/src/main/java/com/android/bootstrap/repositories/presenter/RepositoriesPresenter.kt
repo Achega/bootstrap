@@ -22,6 +22,7 @@ class RepositoriesPresenter(private val view: RepositoryView, private val getRep
   }
 
   private fun getRepositories(page: Int) {
+    view.showLoading()
     val subscription = getRepositoriesUseCase.getRepositories(page, ITEMS_PER_PAGE)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -29,6 +30,7 @@ class RepositoriesPresenter(private val view: RepositoryView, private val getRep
             {
               view.addRepositoriesToList(it)
               if (it.size < 10) view.stopSearching()
+              view.hideLoading()
             },
             { view.showError() }
         )
