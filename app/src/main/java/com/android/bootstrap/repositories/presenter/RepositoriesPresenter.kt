@@ -32,7 +32,10 @@ class RepositoriesPresenter(private val view: RepositoryView, private val getRep
               if (it.size < 10) view.stopSearching()
               view.hideLoading()
             },
-            { view.showError() }
+            {
+              view.showError()
+              view.hideLoading()
+            }
         )
     subscriptions.add(subscription)
   }
