@@ -1,12 +1,15 @@
 package com.android.bootstrap.repositories.presenter
 
-import com.android.bootstrap.repositories.view.RepositoryView
-import com.android.bootstrap.usecase.domain.GetRepositoriesUseCase
+import com.android.bootstrap.repositories.view.ReposView
+import com.android.bootstrap.usecase.domain.GetReposUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.Scheduler
 
-class RepositoriesPresenter(private val view: RepositoryView, private val getRepositoriesUseCase: GetRepositoriesUseCase) {
+class ReposPresenter(private val view: ReposView, private val getReposUseCase: GetReposUseCase,
+                     private val ioScheduler: Scheduler = Schedulers.io(),
+                     private val mainThreadScheduler: Scheduler = AndroidSchedulers.mainThread()) {
   companion object {
     private val ITEMS_PER_PAGE = 10
     private val DEFAULT_PAGE = 1
@@ -23,9 +26,9 @@ class RepositoriesPresenter(private val view: RepositoryView, private val getRep
 
   private fun getRepositories(page: Int) {
     view.showLoading()
-    val subscription = getRepositoriesUseCase.getRepositories(page, ITEMS_PER_PAGE)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
+    val subscription = getReposUseCase.getRepositories(page, ITEMS_PER_PAGE)
+        .subscribeOn(ioScheduler)
+        .observeOn(mainThreadScheduler)
         .subscribe(
             {
               view.addRepositoriesToList(it)

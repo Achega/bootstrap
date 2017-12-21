@@ -9,22 +9,22 @@ import android.view.View.VISIBLE
 import android.view.View.GONE
 import com.android.bootstrap.R
 import com.android.bootstrap.usecase.domain.model.Repo
-import com.android.bootstrap.repositories.presenter.RepositoriesPresenter
-import com.android.bootstrap.repositories.view.adapter.RepositoryAdapter
+import com.android.bootstrap.repositories.presenter.ReposPresenter
+import com.android.bootstrap.repositories.view.adapter.ReposAdapter
 import com.android.bootstrap.repositories.view.adapter.ScrollListener
-import com.android.bootstrap.usecase.GetRepositoriesUseCaseServiceLocator
+import com.android.bootstrap.usecase.GetReposUseCaseServiceLocator
 import kotlinx.android.synthetic.main.activity_repositories.repositoriesRecyclerView
 import kotlinx.android.synthetic.main.progress_bar_view.progress_bar
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.toast
 
-class RepositoriesActivity : AppCompatActivity(), RepositoryView {
-  private val presenter = RepositoriesPresenter(this, GetRepositoriesUseCaseServiceLocator.provideGetRepositoriesUseCase())
+class ReposActivity : AppCompatActivity(), ReposView {
+  private val presenter = ReposPresenter(this, GetReposUseCaseServiceLocator.provideGetRepositoriesUseCase())
   private val layoutManager = LinearLayoutManager(this)
   private var isLoading = false
   private var isLastPage = false
   private var currentPage = 1
-  private lateinit var adapter: RepositoryAdapter
+  private lateinit var adapter: ReposAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -35,7 +35,7 @@ class RepositoriesActivity : AppCompatActivity(), RepositoryView {
   }
 
   private fun initAdapter() {
-    adapter = RepositoryAdapter() { repository ->
+    adapter = ReposAdapter() { repository ->
       alert(R.string.alert_message) {
         positiveButton(R.string.alert_positive_button) { openInBrowser(repository.htmlUrl) }
         negativeButton(R.string.alert_negative_button) { openInBrowser(repository.ownerHtmlUrl) }
@@ -61,10 +61,6 @@ class RepositoriesActivity : AppCompatActivity(), RepositoryView {
   override fun onDestroy() {
     super.onDestroy()
     presenter.onDestroy()
-  }
-
-  override fun showRepositories(repositories: List<Repo>) {
-    adapter.addRepositories(repositories)
   }
 
   override fun addRepositoriesToList(repositories: List<Repo>) {

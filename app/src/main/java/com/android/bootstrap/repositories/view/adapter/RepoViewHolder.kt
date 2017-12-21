@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.repository_view.view.repository_view_descr
 import kotlinx.android.synthetic.main.repository_view.view.repository_view_login
 import kotlinx.android.synthetic.main.repository_view.view.repository_view_name
 
-class RepositoryViewHolder(itemView: View, private val onItemClick: (Repo) -> Unit = {})
+class RepoViewHolder(itemView: View, private val onItemClick: (Repo) -> Unit = {})
   : RecyclerView.ViewHolder(itemView) {
   fun bind(repo: Repo) {
     with(repo) {
