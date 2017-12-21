@@ -1,0 +1,4 @@
+It has been impossible for me to test the application in an ICS device. 
+All images from Android Open Source Project don't work in my Android Studio. 
+And unfortunately I haven't had time for develop an internal cache. 
+For the development I used kotlin because help me a lot to code faster than java.
