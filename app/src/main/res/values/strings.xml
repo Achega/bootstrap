@@ -1,4 +1,8 @@
 <resources>
   <string name="app_name">Bootstrap</string>
-  <string name="userName">for %1$s</string>
+  <string name="user_name">for %1$s</string>
+  <string name="error_message">an error has occurred</string>
+  <string name="alert_message">Which repository do you want to open? </string>
+  <string name="alert_positive_button">project</string>
+  <string name="alert_negative_button">owner</string>
 </resources>

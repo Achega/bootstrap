@@ -7,12 +7,31 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class RepositoriesPresenter(private val view: RepositoryView, private val getRepositoriesUseCase: GetRepositoriesUseCase) {
+  companion object {
+    private val ITEMS_PER_PAGE = 10
+    private val DEFAULT_PAGE = 1
+  }
+
   private val subscriptions: CompositeDisposable by lazy { CompositeDisposable() }
-  fun onRepositoriesLoaded(page: Int, perPage: Int) {
-    val subscription = getRepositoriesUseCase.getRepositories(page, perPage)
+  fun onRepositoriesLoaded() {
+    getRepositories(DEFAULT_PAGE)
+  }
+
+  fun onNewPageLoaded(page: Int) {
+    getRepositories(page)
+  }
+
+  private fun getRepositories(page: Int) {
+    val subscription = getRepositoriesUseCase.getRepositories(page, ITEMS_PER_PAGE)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe { view.showRepositories(it) }
+        .subscribe(
+            {
+              view.addRepositoriesToList(it)
+              if (it.size < 10) view.stopSearching()
+            },
+            { view.showError() }
+        )
     subscriptions.add(subscription)
   }
 

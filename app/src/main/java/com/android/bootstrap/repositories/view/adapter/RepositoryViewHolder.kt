@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.repository_view.view.repository_view_descr
 import kotlinx.android.synthetic.main.repository_view.view.repository_view_login
 import kotlinx.android.synthetic.main.repository_view.view.repository_view_name
 
-class RepositoryViewHolder(itemView: View, private val onItemClick: (Repo) -> Unit)
+class RepositoryViewHolder(itemView: View, private val onItemClick: (Repo) -> Unit = {})
   : RecyclerView.ViewHolder(itemView) {
   fun bind(repo: Repo) {
     with(repo) {
@@ -17,7 +17,7 @@ class RepositoryViewHolder(itemView: View, private val onItemClick: (Repo) -> Un
       itemView.repository_view_description.text = description
       itemView.repository_view_login.text = getLoginText(login)
       setBackgroundColor(isFork)
-      itemView.setOnClickListener { onItemClick(repo) }
+      itemView.setOnLongClickListener { onItemClick(repo); true }
     }
   }
 
@@ -28,5 +28,5 @@ class RepositoryViewHolder(itemView: View, private val onItemClick: (Repo) -> Un
 
   private fun getColorId(isFork: Boolean): Int = if (isFork) R.color.lightGreen else R.color.white
 
-  private fun getLoginText(userName: String) = itemView.context.getString(R.string.userName, userName)
+  private fun getLoginText(userName: String) = itemView.context.getString(R.string.user_name, userName)
 }
